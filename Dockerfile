@@ -5,10 +5,10 @@ FROM alpine:3.18
 RUN apk add --no-cache wget ca-certificates \
     && update-ca-certificates
 
-# 下载并安装最新 ttyd 二进制（示例为 v1.7.3，请根据需要替换版本）
+# 下载并安装最新 ttyd 二进制（示例为 v1.7.7，请根据最新版本替换）
 ENV TTYD_VERSION=1.7.7
 RUN wget -O /tmp/ttyd.tar.gz \
-    https://github.com/tsl0922/ttyd/releases/download/${TTTYD_VERSION}/ttyd_linux_amd64.tar.gz \
+    https://github.com/tsl0922/ttyd/releases/download/${TTYD_VERSION}/ttyd_linux_amd64.tar.gz \
     && tar -zxC /usr/local/bin -f /tmp/ttyd.tar.gz --strip-components=1 \
     && rm /tmp/ttyd.tar.gz
 
@@ -16,7 +16,7 @@ RUN wget -O /tmp/ttyd.tar.gz \
 WORKDIR /root
 
 # 暴露默认端口
-EXPOSE 7681
+EXPOSE ${TTYD_PORT}
 
 # 环境变量：端口与终端命令可自定义
 ENV TTYD_PORT=7681
